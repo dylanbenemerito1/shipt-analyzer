@@ -73,35 +73,46 @@ The tool calls the Claude API to parse the images and then runs the data through
   <img src="shipt_analyzer_assets/03_analyzer_after.png" alt="The Shipt Analyzer interface after analysis, displaying ranked order cards with scores and recommendations." width="600">
 </p>
 
-### Step 4: Data Tracking
+### Step 4: Claim & Track
 
-Finally, all claimed orders are synced to Google Sheets, and the analyzer's "Stats" tab provides a dashboard view of key performance indicators. The screenshot below shows the dashboard with a fresh data set, ready to be populated.
+Once an order is claimed in the app, it moves to the "Pending Tips" tab. This screen tracks completed jobs for which a tip has not yet been received, allowing for easy updates once the final pay is known.
 
 <p align="center">
-  <img src="shipt_analyzer_assets/04_stats_page.png" alt="The Stats page of the Shipt Analyzer, showing various metrics like Total Earned, Hourly Rate, and Tip Rate, all at zero for a new session." width="600">
+  <img src="shipt_analyzer_assets/04_pending_tips.png" alt="A screenshot of the Pending Tips tab, showing a list of claimed orders awaiting final tip information." width="600">
+</p>
+
+### Step 5: Data Tracking
+
+Finally, all completed and updated orders are synced to Google Sheets, and the analyzer's "Stats" tab provides a dashboard view of key performance indicators.
+<p align="center">
+  <img src="shipt_analyzer_assets/05_stats_page.png" alt="The Stats page of the Shipt Analyzer, showing various metrics like Total Earned, Hourly Rate, and Tip Rate." width="600">
 </p>
 
 ## 4. Challenges & How I Solved Them
 
 Building the analyzer involved several iterations and learning opportunities. Two key challenges stood out:
+
 ### Challenge 1: Refining the Scoring System
 
 **The Problem:** The initial scoring algorithm was too simplistic and tended to rate most orders as "high value." This was not effective for distinguishing between a good order and a *great* one, as most offers on the platform need to have some base level of appeal to be taken at all.
 
 **The Solution:** I implemented a more sophisticated, user-configurable scoring system. Instead of a rigid formula, I added settings that allowed me to define my personal profitability targets (e.g., minimum pay, max distance, target $/hour). Most importantly, I added a "Tip Intelligence" weight. Based on my finding that tips were 50% of my income, I increased this weight to a 4 out of 5, causing the algorithm to heavily favor orders from stores, neighborhoods, and customers with a proven history of high tips. This transformed the analyzer from a simple calculator into a strategic tool.
 
-*Below are the settings I configured to fine-tune the algorithm based on my real-world experience.*
-
+*Below are the settings I configured to fine-tune the algorithm and connect the tool's services based on my real-world experience.*
 <p align="center">
-  <img src="shipt_analyzer_assets/05_settings_scoring.png" alt="A screenshot of the Scoring Settings tab in the Shipt Analyzer, showing adjustable values for minimum pay, max distance, and target hourly rate." width="600">
+  <img src="shipt_analyzer_assets/06_settings_main_api.png" alt="A screenshot of the main Settings page, showing fields for the Claude API Key and Google Apps Script URL." width="600">
   <br>
-  <em>Image: User-configurable settings for base scoring.</em>
+  <em>Image: The main settings page for connecting to the Claude API and Google Sheets.</em>
 </p>
-
 <p align="center">
-  <img src="shipt_analyzer_assets/06_settings_tip_intel.png" alt="A screenshot of the Tip Intelligence settings, showing an adjustable weight for tip history." width="600">
+  <img src="shipt_analyzer_assets/07_settings_scoring.png" alt="A screenshot of the Scoring Settings tab with updated values, including a higher minimum pay and hourly target." width="600">
   <br>
-  <em>Image: The adjustable weight for the "Tip Intelligence" feature.</em>
+  <em>Image: Updated scoring parameters to reflect a more selective strategy.</em>
+</p>
+<p align="center">
+  <img src="shipt_analyzer_assets/08_settings_intel_batch.png" alt="A screenshot of the combined Tip Intelligence and Batching settings." width="600">
+  <br>
+  <em>Image: Settings for the Tip Intelligence and custom Batching features.</em>
 </p>
 
 ### Challenge 2: Scalable Data Storage
@@ -113,4 +124,5 @@ Building the analyzer involved several iterations and learning opportunities. Tw
 ## 5. View the Code
 
 The complete code for this single-page application is available on GitHub.
+
 [**dylanbenemerito1/shipt-analyzer**](https://github.com/dylanbenemerito1/shipt-analyzer)
