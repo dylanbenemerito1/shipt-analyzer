@@ -54,9 +54,11 @@ The process is designed to be fast and efficient, turning raw screenshots into a
 First, I capture screenshots of the available orders directly from the Shipt app.
 
 <p align="center">
-  <img src="shipt_analyzer_assets/01_input_order.png" alt="A screenshot of a Shipt order offer, showing pay, location, and item details." width="600">
-</p>
-
+      <img src="shipt_analyzer_assets/01_input_order.png" alt="A screenshot of a Shipt order offer, showing pay, location, and item details." width="600">
+      <br>
+      <em>(Note: Customer's address and specific location have been redacted for privacy.)</em>
+    </p>
+    
 ### Step 2: Upload
 
 Next, I drop the raw screenshots into the analyzer's upload area.
