@@ -26,11 +26,9 @@ As a Shipt shopper, the goal is to maximize profits. However, profitability isn'
 After tracking my first 10-15 orders, I discovered a critical insight: tips accounted for nearly 50% of my total income. This meant that simply chasing high base pay was an incomplete strategy. To truly maximize profits, I needed a tool that not only calculated efficiency but also learned and prioritized orders with a higher probability of a good tip.
 
 ## 2. What I Built: A Smart Order Analysis & Decision Engine
-
 To solve this, I built a standalone web application that serves as a personal mission control for Shipt shopping. The workflow is simple: I take screenshots of available orders from the Shipt app and upload them to the analyzer. The tool then processes the images and presents a clear, data-driven recommendation for each one.
 
 Once an order is analyzed, the workflow continues within the app. I can mark an order as "Claimed," which automatically moves it to a "Pending Tips" tab. This section serves as a queue for completed orders where the final tip, which can arrive days or weeks later, has not yet been logged. The system also allows for manual data correction at any stage. This is crucial for fixing occasional text recognition errors from the image analysis, such as distinguishing between two locations of the same store (e.g., ensuring "Target" is correctly logged as "Target South"). This ensures the data feeding the Tip Intelligence feature is as accurate as possible.
-
 
 The application is a single HTML file with vanilla JavaScript, making it fast, portable, and easy to maintain. It uses the browser's local storage for settings and syncs completed order data to Google Sheets for long-term analysis.
 
@@ -40,7 +38,8 @@ The application is a single HTML file with vanilla JavaScript, making it fast, p
 
 *   **Custom Scoring Algorithm:** Each order is graded on a 100-point scale based on a custom formula that prioritizes the effective hourly rate. The result is a simple, color-coded verdict: **Take** (high value), **Maybe** (moderate value), or **Skip** (low value).
 
-*   **Intelligent Batching:** To avoid paying for a maps API, I created a custom grid map of my shopping area (Lincoln, NE). The analyzer uses this to identify when two separate orders are close enough to be batched together, suggesting custom, high-efficiency batches that the official app might miss.
+*   **Intelligent Batching:** To avoid paying for a maps API, I created a custom grid map of my shopping area (Lincoln, NE). The analyzer uses this to identify when two separate orders are close enough to be batched together, suggesting custom, high-efficiency bat
+markdownches that the official app might miss.
 
 *   **Tip Intelligence:** The app learns from past performance. After completing an order, I can log the final tip amount. The analyzer uses this historical data, synced to Google Sheets, to add bonus points to future orders from historically high-tipping stores or neighborhoods, further optimizing my decision-making.
 
@@ -54,30 +53,37 @@ The process is designed to be fast and efficient, turning raw screenshots into a
 
 First, I capture screenshots of the available orders directly from the Shipt app.
 
-![A screenshot of a Shipt order offer, showing pay, location, and item details.](shipt_analyzer_assets/01_input_order.png)
+<p align="center">
+  <img src="shipt_analyzer_assets/01_input_order.png" alt="A screenshot of a Shipt order offer, showing pay, location, and item details." width="600">
+</p>
 
 ### Step 2: Upload
 
 Next, I drop the raw screenshots into the analyzer's upload area.
 
-![The Shipt Analyzer interface before analysis, showing a drag-and-drop zone for images.](shipt_analyzer_assets/02_analyzer_before.png)
+<p align="center">
+  <img src="shipt_analyzer_assets/02_analyzer_before.png" alt="The Shipt Analyzer interface before analysis, showing a drag-and-drop zone for images." width="600">
+</p>
 
 ### Step 3: Analysis & Recommendation
 
 The tool calls the Claude API to parse the images and then runs the data through the scoring algorithm. The results are displayed as neatly organized cards with clear "Take," "Maybe," or "Skip" verdicts.
 
-![The Shipt Analyzer interface after analysis, displaying ranked order cards with scores and recommendations.](shipt_analyzer_assets/03_analyzer_after.png)
+<p align="center">
+  <img src="shipt_analyzer_assets/03_analyzer_after.png" alt="The Shipt Analyzer interface after analysis, displaying ranked order cards with scores and recommendations." width="600">
+</p>
 
 ### Step 4: Data Tracking
 
 Finally, all claimed orders are synced to Google Sheets, and the analyzer's "Stats" tab provides a dashboard view of key performance indicators. The screenshot below shows the dashboard with a fresh data set, ready to be populated.
 
-![The Stats page of the Shipt Analyzer, showing various metrics like Total Earned, Hourly Rate, and Tip Rate, all at zero for a new session.](shipt_analyzer_assets/04_stats_page.png)
+<p align="center">
+  <img src="shipt_analyzer_assets/04_stats_page.png" alt="The Stats page of the Shipt Analyzer, showing various metrics like Total Earned, Hourly Rate, and Tip Rate, all at zero for a new session." width="600">
+</p>
 
 ## 4. Challenges & How I Solved Them
 
 Building the analyzer involved several iterations and learning opportunities. Two key challenges stood out:
-
 ### Challenge 1: Refining the Scoring System
 
 **The Problem:** The initial scoring algorithm was too simplistic and tended to rate most orders as "high value." This was not effective for distinguishing between a good order and a *great* one, as most offers on the platform need to have some base level of appeal to be taken at all.
@@ -86,12 +92,17 @@ Building the analyzer involved several iterations and learning opportunities. Tw
 
 *Below are the settings I configured to fine-tune the algorithm based on my real-world experience.*
 
-![A screenshot of the Scoring Settings tab in the Shipt Analyzer, showing adjustable values for minimum pay, max distance, and target hourly rate.](shipt_analyzer_assets/05_settings_scoring.png)
-*Image: User-configurable settings for base scoring.*
+<p align="center">
+  <img src="shipt_analyzer_assets/05_settings_scoring.png" alt="A screenshot of the Scoring Settings tab in the Shipt Analyzer, showing adjustable values for minimum pay, max distance, and target hourly rate." width="600">
+  <br>
+  <em>Image: User-configurable settings for base scoring.</em>
+</p>
 
-![A screenshot of the Tip Intelligence settings, showing an adjustable weight for tip history.](shipt_analyzer_assets/06_settings_tip_intel.png)
-*Image: The adjustable weight for the "Tip Intelligence" feature.*
-
+<p align="center">
+  <img src="shipt_analyzer_assets/06_settings_tip_intel.png" alt="A screenshot of the Tip Intelligence settings, showing an adjustable weight for tip history." width="600">
+  <br>
+  <em>Image: The adjustable weight for the "Tip Intelligence" feature.</em>
+</p>
 
 ### Challenge 2: Scalable Data Storage
 
@@ -102,6 +113,4 @@ Building the analyzer involved several iterations and learning opportunities. Tw
 ## 5. View the Code
 
 The complete code for this single-page application is available on GitHub.
-
 [**dylanbenemerito1/shipt-analyzer**](https://github.com/dylanbenemerito1/shipt-analyzer)
-
